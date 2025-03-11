@@ -14,17 +14,23 @@ export default {
       () => result.value?.fetchQuestion ?? { questionText: '', choices: [] },
     )
     const currentVote = ref('')
+    const valid = ref(false)
     const voteRules = [
       (value: string) => {
-        if (value) return true
+        if (value) {
+          valid.value = true
+          return valid.value
+        }
         return 'You must vote first.'
       },
     ]
     const { mutate: vote, onDone } = useMutation(VOTE_ON_QUESTION)
+    const voteOnQuestion = () =>
+      valid.value && vote({ questionId, choiceId: currentVote.value.toString() })
     onDone(() => {
       router.push({ name: 'results', params: { id: questionId } })
     })
-    return { question, currentVote, voteRules, vote, questionId }
+    return { question, currentVote, voteRules, voteOnQuestion, valid }
   },
 }
 </script>
@@ -32,7 +38,7 @@ export default {
 <template>
   <v-app>
     <v-container class="mx-auto pt-16 w-md-50 w-sm-100">
-      <v-form @submit.prevent>
+      <v-form @submit.prevent="voteOnQuestion" v-model="valid">
         <h1 class="mb-6">{{ question.questionText }}</h1>
         <v-radio-group v-model="currentVote" :rules="voteRules">
           <v-radio
@@ -42,9 +48,7 @@ export default {
             :value="choice.id"
           ></v-radio>
         </v-radio-group>
-        <v-btn class="mt-2" type="submit" @click="vote({ questionId, choiceId: currentVote })">
-          Vote
-        </v-btn>
+        <v-btn class="mt-2" type="submit"> Vote </v-btn>
       </v-form>
     </v-container>
   </v-app>
