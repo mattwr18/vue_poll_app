@@ -6,7 +6,7 @@ import { FETCH_QUESTION } from '@/operations/queries'
 export default {
   setup() {
     const route = useRoute()
-    const { result } = useQuery(FETCH_QUESTION, { id: route.params.id.toString() })
+    const { result, loading, error } = useQuery(FETCH_QUESTION, { id: route.params.id.toString() })
     const question = computed(
       () =>
         result.value?.fetchQuestion ?? {
@@ -16,7 +16,9 @@ export default {
     )
     const pluralizeVotes = (votes: number) => (votes === 1 ? 'vote' : 'votes')
     return {
+      loading,
       question,
+      error,
       pluralizeVotes,
     }
   },
@@ -25,7 +27,27 @@ export default {
 
 <template>
   <v-app>
-    <v-container class="mx-auto pt-16 w-md-50 w-sm-100">
+    <v-container v-if="loading || error" class="mx-auto pt-16 w-md-50 w-sm-100">
+      <v-empty-state
+        v-if="loading"
+        headline="Loading..."
+        title="Grab yourself a hot beverage."
+        image="/public/coffee-5009730_1280.png"
+      >
+      </v-empty-state>
+      <v-empty-state
+        v-else-if="error"
+        headline="Whoops"
+        title="Somethings wrong! It's not your fault"
+        :text="error.message"
+        image="/public/false-2061131_1280.png"
+      >
+      </v-empty-state>
+    </v-container>
+    <v-container
+      v-else-if="question && question.questionText"
+      class="mx-auto pt-16 w-md-50 w-sm-100"
+    >
       <h1 class="mb-6">{{ question.questionText }}</h1>
       <v-card tag="article">
         <v-list v-if="question && question.choices" tag="ul">

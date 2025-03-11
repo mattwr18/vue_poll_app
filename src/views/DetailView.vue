@@ -9,7 +9,7 @@ export default {
   setup() {
     const route = useRoute()
     const questionId = route.params.id.toString()
-    const { result } = useQuery(FETCH_QUESTION, { id: questionId })
+    const { result, loading, error } = useQuery(FETCH_QUESTION, { id: questionId })
     const question = computed(
       () => result.value?.fetchQuestion ?? { questionText: '', choices: [] },
     )
@@ -30,7 +30,15 @@ export default {
     onDone(() => {
       router.push({ name: 'results', params: { id: questionId } })
     })
-    return { question, currentVote, voteRules, voteOnQuestion, valid }
+    return {
+      loading,
+      question,
+      error,
+      currentVote,
+      voteRules,
+      valid,
+      voteOnQuestion,
+    }
   },
 }
 </script>
@@ -38,7 +46,26 @@ export default {
 <template>
   <v-app>
     <v-container class="mx-auto pt-16 w-md-50 w-sm-100">
-      <v-form @submit.prevent="voteOnQuestion" v-model="valid">
+      <v-empty-state
+        v-if="loading"
+        headline="Loading..."
+        title="Grab yourself a hot beverage."
+        image="/public/coffee-5009730_1280.png"
+      >
+      </v-empty-state>
+      <v-empty-state
+        v-else-if="error"
+        headline="Whoops"
+        title="Somethings wrong! It's not your fault"
+        :text="error.message"
+        image="/public/false-2061131_1280.png"
+      >
+      </v-empty-state>
+      <v-form
+        @submit.prevent="voteOnQuestion"
+        v-model="valid"
+        v-else-if="question && question.questionText"
+      >
         <h1 class="mb-6">{{ question.questionText }}</h1>
         <v-radio-group v-model="currentVote" :rules="voteRules">
           <v-radio
