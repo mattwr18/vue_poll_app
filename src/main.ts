@@ -1,4 +1,3 @@
-import '@mdi/font/css/materialdesignicons.css'
 import { createApp, provide, h } from 'vue'
 
 // Apollo Client
@@ -7,10 +6,9 @@ import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core
 
 // Vuetify
 import 'vuetify/styles'
-import { createVuetify, type ThemeDefinition } from 'vuetify'
+import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
-import colors from 'vuetify/util/colors'
 
 import App from './App.vue'
 import router from './router'

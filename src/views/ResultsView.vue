@@ -2,12 +2,18 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useQuery } from '@vue/apollo-composable'
-import { FETCH_RESULTS } from '@/operations/queries'
+import { FETCH_QUESTION } from '@/operations/queries'
 export default {
   setup() {
     const route = useRoute()
-    const { result } = useQuery(FETCH_RESULTS, { id: route.params.id.toString() })
-    const question = computed(() => result.value?.fetchQuestion ?? {})
+    const { result } = useQuery(FETCH_QUESTION, { id: route.params.id.toString() })
+    const question = computed(
+      () =>
+        result.value?.fetchQuestion ?? {
+          questionText: '',
+          choices: [{ id: '', votes: 0, choiceText: '' }],
+        },
+    )
     const pluralizeVotes = (votes: number) => (votes === 1 ? 'vote' : 'votes')
     return {
       question,
@@ -19,8 +25,8 @@ export default {
 
 <template>
   <v-app>
-    <v-container max-width="50%">
-      <h1>{{ question.questionText }}</h1>
+    <v-container class="mx-auto pt-16 w-md-50 w-sm-100">
+      <h1 class="mb-6">{{ question.questionText }}</h1>
       <v-card tag="article">
         <v-list v-if="question && question.choices" tag="ul">
           <v-list-item

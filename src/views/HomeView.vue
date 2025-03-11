@@ -15,8 +15,8 @@ export default {
 
 <template>
   <v-app>
-    <v-container max-width="50%">
-      <h1>Poll Questions</h1>
+    <v-container class="mx-auto pt-16 w-md-50 w-sm-100">
+      <h1 class="mb-6">Poll Questions</h1>
       <v-card tag="article">
         <v-list v-if="questions" tag="ul">
           <v-list-item

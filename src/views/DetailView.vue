@@ -10,7 +10,9 @@ export default {
     const route = useRoute()
     const questionId = route.params.id.toString()
     const { result } = useQuery(FETCH_QUESTION, { id: questionId })
-    const question = computed(() => result.value?.fetchQuestion ?? {})
+    const question = computed(
+      () => result.value?.fetchQuestion ?? { questionText: '', choices: [] },
+    )
     const currentVote = ref('')
     const voteRules = [
       (value: string) => {
@@ -29,9 +31,9 @@ export default {
 
 <template>
   <v-app>
-    <v-container max-width="50%">
+    <v-container class="mx-auto pt-16 w-md-50 w-sm-100">
       <v-form @submit.prevent>
-        <h1>{{ question.questionText }}</h1>
+        <h1 class="mb-6">{{ question.questionText }}</h1>
         <v-radio-group v-model="currentVote" :rules="voteRules">
           <v-radio
             v-for="choice in question.choices"

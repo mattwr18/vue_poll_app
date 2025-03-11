@@ -14,16 +14,14 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "\n  mutation Vote($questionId: ID!, $choiceId: ID!) {\n    vote(questionId: $questionId, choiceId: $choiceId) {\n      question {\n        id\n        questionText\n        choices {\n          id\n          choiceText\n          votes\n        }\n      }\n    }\n  }\n": typeof types.VoteDocument,
+    "\n  mutation VoteOnQuestion($questionId: ID!, $choiceId: ID!) {\n    vote(questionId: $questionId, choiceId: $choiceId) {\n      question {\n        id\n        questionText\n        choices {\n          id\n          choiceText\n          votes\n        }\n      }\n    }\n  }\n": typeof types.VoteOnQuestionDocument,
     "\n  query FetchQuestions {\n    fetchQuestions {\n      id\n      questionText\n    }\n  }\n": typeof types.FetchQuestionsDocument,
-    "\n  query FetchQuestion($id: ID!) {\n    fetchQuestion(id: $id) {\n      id\n      questionText\n      choices {\n        id\n        choiceText\n      }\n    }\n  }\n": typeof types.FetchQuestionDocument,
-    "\n  query fetchResults($id: ID!) {\n    fetchQuestion(id: $id) {\n      id\n      questionText\n      choices {\n        choiceText\n        votes\n      }\n    }\n  }\n": typeof types.FetchResultsDocument,
+    "\n  query FetchQuestion($id: ID!) {\n    fetchQuestion(id: $id) {\n      id\n      questionText\n      choices {\n        id\n        choiceText\n        votes\n      }\n    }\n  }\n": typeof types.FetchQuestionDocument,
 };
 const documents: Documents = {
-    "\n  mutation Vote($questionId: ID!, $choiceId: ID!) {\n    vote(questionId: $questionId, choiceId: $choiceId) {\n      question {\n        id\n        questionText\n        choices {\n          id\n          choiceText\n          votes\n        }\n      }\n    }\n  }\n": types.VoteDocument,
+    "\n  mutation VoteOnQuestion($questionId: ID!, $choiceId: ID!) {\n    vote(questionId: $questionId, choiceId: $choiceId) {\n      question {\n        id\n        questionText\n        choices {\n          id\n          choiceText\n          votes\n        }\n      }\n    }\n  }\n": types.VoteOnQuestionDocument,
     "\n  query FetchQuestions {\n    fetchQuestions {\n      id\n      questionText\n    }\n  }\n": types.FetchQuestionsDocument,
-    "\n  query FetchQuestion($id: ID!) {\n    fetchQuestion(id: $id) {\n      id\n      questionText\n      choices {\n        id\n        choiceText\n      }\n    }\n  }\n": types.FetchQuestionDocument,
-    "\n  query fetchResults($id: ID!) {\n    fetchQuestion(id: $id) {\n      id\n      questionText\n      choices {\n        choiceText\n        votes\n      }\n    }\n  }\n": types.FetchResultsDocument,
+    "\n  query FetchQuestion($id: ID!) {\n    fetchQuestion(id: $id) {\n      id\n      questionText\n      choices {\n        id\n        choiceText\n        votes\n      }\n    }\n  }\n": types.FetchQuestionDocument,
 };
 
 /**
@@ -43,7 +41,7 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation Vote($questionId: ID!, $choiceId: ID!) {\n    vote(questionId: $questionId, choiceId: $choiceId) {\n      question {\n        id\n        questionText\n        choices {\n          id\n          choiceText\n          votes\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation Vote($questionId: ID!, $choiceId: ID!) {\n    vote(questionId: $questionId, choiceId: $choiceId) {\n      question {\n        id\n        questionText\n        choices {\n          id\n          choiceText\n          votes\n        }\n      }\n    }\n  }\n"];
+export function gql(source: "\n  mutation VoteOnQuestion($questionId: ID!, $choiceId: ID!) {\n    vote(questionId: $questionId, choiceId: $choiceId) {\n      question {\n        id\n        questionText\n        choices {\n          id\n          choiceText\n          votes\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation VoteOnQuestion($questionId: ID!, $choiceId: ID!) {\n    vote(questionId: $questionId, choiceId: $choiceId) {\n      question {\n        id\n        questionText\n        choices {\n          id\n          choiceText\n          votes\n        }\n      }\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -51,11 +49,7 @@ export function gql(source: "\n  query FetchQuestions {\n    fetchQuestions {\n 
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query FetchQuestion($id: ID!) {\n    fetchQuestion(id: $id) {\n      id\n      questionText\n      choices {\n        id\n        choiceText\n      }\n    }\n  }\n"): (typeof documents)["\n  query FetchQuestion($id: ID!) {\n    fetchQuestion(id: $id) {\n      id\n      questionText\n      choices {\n        id\n        choiceText\n      }\n    }\n  }\n"];
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(source: "\n  query fetchResults($id: ID!) {\n    fetchQuestion(id: $id) {\n      id\n      questionText\n      choices {\n        choiceText\n        votes\n      }\n    }\n  }\n"): (typeof documents)["\n  query fetchResults($id: ID!) {\n    fetchQuestion(id: $id) {\n      id\n      questionText\n      choices {\n        choiceText\n        votes\n      }\n    }\n  }\n"];
+export function gql(source: "\n  query FetchQuestion($id: ID!) {\n    fetchQuestion(id: $id) {\n      id\n      questionText\n      choices {\n        id\n        choiceText\n        votes\n      }\n    }\n  }\n"): (typeof documents)["\n  query FetchQuestion($id: ID!) {\n    fetchQuestion(id: $id) {\n      id\n      questionText\n      choices {\n        id\n        choiceText\n        votes\n      }\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

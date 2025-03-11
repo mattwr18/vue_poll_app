@@ -17,18 +17,6 @@ export const FETCH_QUESTION = gql(/* GraphQL */ `
       choices {
         id
         choiceText
-      }
-    }
-  }
-`)
-
-export const FETCH_RESULTS = gql(/* GraphQL */ `
-  query fetchResults($id: ID!) {
-    fetchQuestion(id: $id) {
-      id
-      questionText
-      choices {
-        choiceText
         votes
       }
     }
