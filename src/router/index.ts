@@ -1,15 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import DetailView from '../views/DetailView.vue'
-import ResultsView from '../views/ResultsView.vue'
+import HomeView from '@/views/HomeView.vue'
+import DetailView from '@/views/DetailView.vue'
+import ResultsView from '@/views/ResultsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/polls',
+      path: '/',
       name: 'home',
       component: HomeView,
+      children: [{ path: '/polls', component: HomeView, alias: ['/polls'] }],
     },
     {
       path: '/polls/:id',
