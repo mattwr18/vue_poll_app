@@ -2,14 +2,18 @@
 import { computed } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { FETCH_QUESTIONS } from '@/operations/queries'
+import errorImg from '@/assets/false-2061131_1280.png'
+import loadingImg from '@/assets/coffee-5009730_1280.png'
 export default {
   setup() {
     const { result, loading, error } = useQuery(FETCH_QUESTIONS)
     const questions = computed(() => result.value?.fetchQuestions ?? [])
     return {
-      questions,
       loading,
+      loadingImg,
+      questions,
       error,
+      errorImg,
     }
   },
 }
@@ -22,7 +26,7 @@ export default {
         v-if="loading"
         headline="Loading..."
         title="Grab yourself a hot beverage."
-        image="/public/coffee-5009730_1280.png"
+        :image="loadingImg"
       >
       </v-empty-state>
       <v-empty-state
@@ -30,7 +34,7 @@ export default {
         headline="Whoops"
         title="Somethings wrong! It's not your fault"
         :text="error.message"
-        image="/public/false-2061131_1280.png"
+        :image="errorImg"
       >
       </v-empty-state>
     </v-container>

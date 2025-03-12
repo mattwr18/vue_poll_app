@@ -5,6 +5,9 @@ import { useMutation, useQuery } from '@vue/apollo-composable'
 import { FETCH_QUESTION } from '@/operations/queries'
 import { VOTE_ON_QUESTION } from '@/operations/mutations'
 import router from '@/router'
+import errorImg from '@/assets/false-2061131_1280.png'
+import loadingImg from '@/assets/coffee-5009730_1280.png'
+
 export default {
   setup() {
     const route = useRoute()
@@ -32,8 +35,10 @@ export default {
     })
     return {
       loading,
+      loadingImg,
       question,
       error,
+      errorImg,
       currentVote,
       voteRules,
       valid,
@@ -50,7 +55,7 @@ export default {
         v-if="loading"
         headline="Loading..."
         title="Grab yourself a hot beverage."
-        image="/public/coffee-5009730_1280.png"
+        :image="loadingImg"
       >
       </v-empty-state>
       <v-empty-state
@@ -58,7 +63,7 @@ export default {
         headline="Whoops"
         title="Somethings wrong! It's not your fault"
         :text="error.message"
-        image="/public/false-2061131_1280.png"
+        :image="errorImg"
       >
       </v-empty-state>
       <v-form
