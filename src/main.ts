@@ -19,7 +19,7 @@ const vuetify = createVuetify({
 })
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:8000/graphql',
+  uri: 'http://ec2-3-120-172-41.eu-central-1.compute.amazonaws.com/graphql',
 })
 
 const cache = new InMemoryCache()
